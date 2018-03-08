@@ -16,10 +16,19 @@ import PortraitFactory from './adamnet/PortraitFactory.class.js'
     const page = {
         portraitFactory: new PortraitFactory(),
         portraitOverview: function() {
+            document.querySelector('#loader').style.display = 'block';
             document.querySelector('#main-section').innerHTML = '';
-            document.querySelector('#main-section').innerHTML += 'loading portraits';
 
-            // this.portraitFactory.getPortraits().then(function(portraits)) {
+            let portraits = this.portraitFactory.portraits;
+
+            let sectionTemplate = document.querySelector('#portraits-overview').innerHTML;
+            let template = Handlebars.compile(sectionTemplate);
+
+            let data = template({
+                portraits: portraits
+            });
+            document.querySelector('#loader').style.display = 'none';
+            document.querySelector('#main-section').innerHTML += data;
 
         },
         indexOverview: function() {
@@ -105,7 +114,7 @@ import PortraitFactory from './adamnet/PortraitFactory.class.js'
     '': function() {
         const portraitFactory = new PortraitFactory();
         if(portraitFactory.isPortraitsIndexed()) {
-            console.log(portraitFactory.getPortraitsFromCollection());
+            console.log(portraitFactory.portraits);
             page.portraitOverview();
         } else {
             page.indexOverview();

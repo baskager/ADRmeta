@@ -73,13 +73,16 @@
                 </div>
             </script>
 
-            <script id='artist-overview' type='text/x-handlebars-template'>
-                <h2>{{artist.name}}</h2>
+            <script id='portraits-overview' type='text/x-handlebars-template'>
+                <h2>Portretten</h2>
                 <div class='article-grid'>
-                {{#each artist.paintings}}
-                    <article id='{{id}}'>
-                        <a href='#artist/{{../artist.name}}/painting/{{id}}'>
-                            <img src='{{imageUrl}}' alt='{{longTitle}}' />
+                {{#each portraits}}
+                    <article id='{{azureFaceId}}'>
+                        <a href='#portrait/{{azureFaceId}}'>
+                            <img src='{{imageUrl}}' alt='{{title}}' />
+                            <p>
+                                {{title}}
+                            </p>
                         </a>
                     </article>
                 {{/each}}
