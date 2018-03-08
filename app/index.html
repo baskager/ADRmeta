@@ -45,7 +45,7 @@
                     <p>
                         Klik op de onderstaande knop om te beginnen.
                     </p>
-                    <a href='#indexitems' class='btn'>Begin met indexeren ({{indexDuration}} minuten)</a>
+                    <a href='#indexitems' class='btn'>Begin met indexeren</a>
                 </div>
             </script>
 
@@ -56,7 +56,9 @@
                         Houd deze pagina open tijdens het indexeren, anders gaat de voortgang verloren!
                     </p>
                      <progress id='indexProgress' value='{{progressPercentage}}' max='100'></progress>
-                     {{progressPercentage}}%
+                     {{#if item}}
+                         {{progressPercentage}}%
+                     {{/if}}
                     <h3>{{title}}</h3>
                     {{#if item}}
                     <P>

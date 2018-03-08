@@ -1,10 +1,15 @@
 import queries from '../../config/queries.js'
 import apiConfig from '../../config/js-api-connect.js';
 import Api from '../../lib/js-api-connect/Api.class.js';
+import Portrait from './Portrait.class.js'
 
 export default class PortraitFactory {
-    constructor(portraits = []) {
-        this.portraits = portraits;
+    constructor() {
+        if(this.isPortraitsIndexed()) {
+            this.portraits = JSON.parse(localStorage.getItem('ADRmeta_portraits'));
+        } else {
+            this.portraits = [];
+        }
         this.api = new Api(apiConfig);
     }
 
@@ -13,7 +18,8 @@ export default class PortraitFactory {
     }
 
     savePortraitsToLocalStorage() {
-        localStorage.setItem('ADRmeta_portraits', this.portraits);
+        localStorage.setItem('ADRmeta_portraits_isIndexed', true);
+        localStorage.setItem('ADRmeta_portraits', JSON.stringify(this.portraits));
     }
 
     getPortraitsFromCollection(name) {
@@ -31,16 +37,17 @@ export default class PortraitFactory {
         endpoints.largeFaceList.addFace.body.userData = record.cho.value;
 
         self.api.request('azureFaceAPI', endpoints.largeFaceList.addFace).then(function(data) {
-            return data
-        //    let portrait = new Portrait(
-        //
-        //        record.cho.value
-        //        record.type.value,
-        //        record.title.value,
-        //        record.description.value,
-        //        record.beginTime.value,
-        //        record.img.value
-        //    );
+
+               let portrait = new Portrait(
+                   data.persistedFaceId,
+                   record.cho.value,
+                   record.type.value,
+                   record.title.value,
+                   record.description.value,
+                   record.beginTime.value,
+                   record.img.value
+               );
+               self.addPortrait(portrait);
 
         }).catch(function(err){
            console.log(err);
@@ -58,6 +65,7 @@ export default class PortraitFactory {
 
 
             self.api.request('adamnet', endpoints.sparql.GET).then(function(data) {
+                console.log(data);
                 resolve(data);
             }).catch(function(err){
                 reject(err);

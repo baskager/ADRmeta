@@ -16,6 +16,7 @@ import PortraitFactory from './adamnet/PortraitFactory.class.js'
     const page = {
         portraitFactory: new PortraitFactory(),
         portraitOverview: function() {
+            document.querySelector('#main-section').innerHTML = '';
             document.querySelector('#main-section').innerHTML += 'loading portraits';
 
             // this.portraitFactory.getPortraits().then(function(portraits)) {
@@ -68,36 +69,55 @@ import PortraitFactory from './adamnet/PortraitFactory.class.js'
                                'index': ind+1   ,
                                'item': rows[ind],
                                'progressPercentage': Number(progressPercentage).toFixed(2),
-                               'complete': true
+                               'complete': false
                            });
+
+                           console.dir(self.portraitFactory.getPortraitsFromCollection());
+
+                           if(ind === rows.length-1) {
+                               data = template({
+                                   'title':'Bezig met opslaan van items',
+                                   'progressPercentage': '',
+                               });
+                               setTimeout(function(){
+                                   self.portraitFactory.savePortraitsToLocalStorage();
+
+                                   data = template({
+                                       'title':'Klaar!',
+                                       'progressPercentage': 100,
+                                       'complete': true
+                                   });
+                                   document.querySelector('#main-section').innerHTML = data;
+                               },1000*interval);
+                           }
 
                            document.querySelector('#main-section').innerHTML = data;
 
                     }, ((1000*interval) * ind));
                    })(i);
                }
+
+
             });
         }
     };
-    // Dynamic route to look up paintings by any artist
-    // routie('artist/:name', function(artistName) {
-    //     page.artistOverview(artistName);
-    // });
-    //
-    // routie('artist/:name/painting/:id', function(artistName, paintingId) {
-    //     page.paintingDetail(artistName, paintingId);
-    // });
     routie({
     '': function() {
         const portraitFactory = new PortraitFactory();
-        if(portraitFactory.isPortraitsIndex === true) {
+        if(portraitFactory.isPortraitsIndexed()) {
+            console.log(portraitFactory.getPortraitsFromCollection());
             page.portraitOverview();
         } else {
             page.indexOverview();
         }
     },
     'indexitems': function() {
-        page.indexItems();
+        const portraitFactory = new PortraitFactory();
+        if(!portraitFactory.isPortraitsIndexed()) {
+            page.indexItems();
+        } else {
+            window.location = "#";
+        }
     }
 });
     // Dynamic route to look up paintings by any artist
