@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Web app from scratch</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/css/app.css" />
+    <script src='static/js/lib/handlebars.js'></script>
+    <script src='static/js/lib/routie.js'></script>
+    <script src='static/js/src/app.js' type="module"></script>
+</head>
+
+<body>
+    <!-- <script id="entry-template" type="text/x-handlebars-template"> -->
+        <header>
+            <h1>ADRmeta</h1>
+            <p>
+                Adamlink Depiction Recognition and Metadata similarity tool
+            </p>
+            <!-- <nav>
+                <ul>
+                    <li><a href="#artist/Rembrandt">Rembrandt</a></li>
+                    <li><a href="#artist/Vermeer">Johannes Vermeer</a></li>
+                </ul>
+            </nav> -->
+        </header>
+        <main>
+            <img id='loader' class='loader' src="static/img/ajax-loader.gif"/>
+            <section id="main-section" class="basic-section">
+
+            </section>
+            <script id='index-overview' type='text/x-handlebars-template'>
+                <h2>Welkom bij ADRmeta</h2>
+                <p>
+                    Dit programma vergelijkt meerdere afbeeldingen uit verschillende archieven met elkaar.
+                    Ook wordt specifieke data per afbeelding op aanvraag ingewonnen
+                </p>
+                <div class='indexWarningBox'>
+                    <h3>Er zijn nog geen afbeeldingen geindexeerd</h3>
+                    <p>
+                        De Face API vereist dat we eerst alle afbeeldingen versturen voor analyse
+                        voordat we gelijkenissen kunnen vergelijken.
+                    </p>
+                    <p>
+                        Klik op de onderstaande knop om te beginnen.
+                    </p>
+                    <a href='#indexitems' class='btn'>Begin met indexeren ({{indexDuration}} minuten)</a>
+                </div>
+            </script>
+
+            <script id='index-items' type='text/x-handlebars-template'>
+                <h2>Indexeren</h2>
+                <div class=''>
+                    <p class='hint'>
+                        Houd deze pagina open tijdens het indexeren, anders gaat de voortgang verloren!
+                    </p>
+                     <progress id='indexProgress' value='{{progressPercentage}}' max='100'></progress>
+                     {{progressPercentage}}%
+                    <h3>{{title}}</h3>
+                    {{#if item}}
+                    <P>
+                        <b>Item {{index}} van {{itemsAmount}}</b><br />
+                        <b>Titel: </b>{{item.title.value}} <br />
+                        <b>Tijdsduur:</b> {{minutesLeft}} / {{totalMinutes}} minuten
+                    </P>
+                    {{/if}}
+                    {{#if complete}}
+                        <a href='#' class='btn'>Naar het overzicht</a>
+                    {{/if}}
+                </div>
+            </script>
+
+            <script id='artist-overview' type='text/x-handlebars-template'>
+                <h2>{{artist.name}}</h2>
+                <div class='article-grid'>
+                {{#each artist.paintings}}
+                    <article id='{{id}}'>
+                        <a href='#artist/{{../artist.name}}/painting/{{id}}'>
+                            <img src='{{imageUrl}}' alt='{{longTitle}}' />
+                        </a>
+                    </article>
+                {{/each}}
+                </div>
+            </script>
+
+            <script id='painting-detail' type='text/x-handlebars-template'>
+                <div class='detail-grid'>
+                    <a class='btn back' href='#artist/{{artist.name}}'>< Paintings by {{artist.name}}</a>
+                    <h2>{{painting.longTitle}}</h2>
+                    <h3>{{painting.principalOrFirstMaker}}</h3>
+                    <div>
+                        <img src='{{painting.imageUrl}}' alt='{{longTitle}}' />
+                    </div>
+                    <a class='btn' href='{{painting.rijksMuseumUrl}}'>View this painting on the Rijksmuseum website</a>
+                </div>
+
+            </script>
+        </main>
+    <!-- </script> -->
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+/* Reset and initialise some values for the body */
+
+body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+.loader {
+    display: none;
+}
+p.hint {
+    background: lightblue;
+    padding: 1em 0 1em;
+    text-align: center;
+    font-weight: bold;
+    border: 1px dotted blue;
+}
+progress {
+    width: 100%;
+}
+.btn {
+    display: block;
+    background: gray;
+    border: 0;
+    padding: 1em;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    transition: 0.2s;
+    font-weight: bold;
+}
+.btn:hover {
+    transform: scale(1.025);
+    background: black;
+}
+.btn.back {
+    width: 15em;
+}
+.error-monkey img {
+    width: 20em;
+    height: auto;
+    margin: 0 auto;
+}
+
+header {
+    background: black;
+    box-sizing: border-box;
+    overflow: auto;
+    padding-left: 1em;
+}
+
+header h1, header p {
+    color: white;
+}
+header h1 {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+header p {
+    margin-top: 0;
+}
+
+nav {
+    background: white;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    box-sizing: border-box;
+}
+
+nav ul a {
+    display: block;
+    padding: 1em;
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+    background: gray;
+    color: white;
+    transition: 0.25s;
+}
+
+nav ul a:hover {
+    background: black;
+}
+
+main {
+    z-index: 0;
+    box-sizing: border-box;
+    overflow: auto;
+    display: grid;
+    grid-column-gap: 5em;
+    max-width: 90em;
+    margin: auto;
+}
+
+.basic-section {
+    min-height: 20em;
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: 0.5s;
+    margin-top: 1em;
+}
+
+.article-grid {
+    margin: 0 5em 0 5em;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 2em;
+}
+.detail-grid {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5em 0 5em;
+}
+.detail-grid h2 {
+    margin-bottom: 0;
+}
+.detail-grid h3 {
+
+}
+
+.basic-section article {
+    margin-bottom: 1em;
+    height: 20em;
+    border: 6px solid white;
+    box-shadow: 0px 0px 10px lightgray;
+    transition: 0.25s;
+}
+
+.basic-section article:hover {
+    box-shadow: 0px 0px 5px gray;
+    transform: scale(1.1);
+}
+
+.basic-section article img {
+    width: 100%;
+    height: 100%;
+}
+
+.basic-section h2 {
+    padding: 0;
+    margin-top: 0;
+    font-size: 2em;
+}
+
+.basic-section .indexWarningBox {
+    padding: 1em;
+    background: whitesmoke;
+    border: 1px dotted black;
+}
