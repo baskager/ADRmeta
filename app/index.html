@@ -89,17 +89,17 @@
                 </div>
             </script>
 
-            <script id='painting-detail' type='text/x-handlebars-template'>
+            <script id='portrait-detail' type='text/x-handlebars-template'>
                 <div class='detail-grid'>
-                    <a class='btn back' href='#artist/{{artist.name}}'>< Paintings by {{artist.name}}</a>
-                    <h2>{{painting.longTitle}}</h2>
-                    <h3>{{painting.principalOrFirstMaker}}</h3>
+                    <a class='btn back' href='#'>Terug naar overzicht</a>
+                    <h3>{{portrait.title}}</h3>
                     <div>
-                        <img src='{{painting.imageUrl}}' alt='{{longTitle}}' />
+                        <img src='{{portrait.imageUrl}}' alt='{{portrait.title}}' />
+                        <p>
+                            {{portrait.description}}
+                        </p>
                     </div>
-                    <a class='btn' href='{{painting.rijksMuseumUrl}}'>View this painting on the Rijksmuseum website</a>
                 </div>
-
             </script>
         </main>
     <!-- </script> -->

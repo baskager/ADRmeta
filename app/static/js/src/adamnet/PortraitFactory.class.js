@@ -22,8 +22,8 @@ export default class PortraitFactory {
         localStorage.setItem('ADRmeta_portraits', JSON.stringify(this.portraits));
     }
 
-    getPortraitsFromCollection(name) {
-        return this.portraits.filter(portrait => portrait.name === name);
+    getPortraitFromCollection(azureFaceId) {
+        return this.portraits.filter(portrait => portrait.azureFaceId === azureFaceId);
     }
 
     isPortraitsIndexed() {

@@ -31,6 +31,22 @@ import PortraitFactory from './adamnet/PortraitFactory.class.js'
             document.querySelector('#main-section').innerHTML += data;
 
         },
+        portraitDetail: function(azureFaceId) {
+            document.querySelector('#main-section').innerHTML = '';
+
+            let portrait = this.portraitFactory.getPortraitFromCollection(azureFaceId)[0];
+            // let similarPortraits = this.portraitFactory.getSimilarPortraits(azureFaceId);
+
+            let sectionTemplate = document.querySelector('#portrait-detail').innerHTML;
+            let template = Handlebars.compile(sectionTemplate);
+
+            let data = template({
+                portrait: portrait
+            });
+            document.querySelector('#loader').style.display = 'none';
+            document.querySelector('#main-section').innerHTML += data;
+
+        },
         indexOverview: function() {
             document.querySelector('#main-section').innerHTML = '';
             document.querySelector('#loader').style.display = 'block';
@@ -119,6 +135,9 @@ import PortraitFactory from './adamnet/PortraitFactory.class.js'
         } else {
             page.indexOverview();
         }
+    },
+    'portrait/:id': function(id) {
+        page.portraitDetail(id);
     },
     'indexitems': function() {
         const portraitFactory = new PortraitFactory();
