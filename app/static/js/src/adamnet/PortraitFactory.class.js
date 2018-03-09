@@ -85,6 +85,7 @@ export default class PortraitFactory {
                 for(let depiction of similarDepictions) {
                     let similarPortrait = self.getPortraitFromCollection(depiction.persistedFaceId)[0];
                     similarPortrait.similarityConfidence = depiction.confidence;
+                    similarPortrait.similarityPercentage = Number(depiction.confidence*100).toFixed(0);
 
                     similarPortraits.push(similarPortrait);
                 }

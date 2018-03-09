@@ -26,7 +26,12 @@
             </nav> -->
         </header>
         <main>
-            <img id='loader' class='loader' src="static/img/ajax-loader.gif"/>
+            <div id='loader' class='loader' >
+                <img src="static/img/ajax-loader.gif"/>
+                <p>
+                    laden...
+                </p>
+            </div>
             <section id="main-section" class="basic-section">
 
             </section>
@@ -74,6 +79,14 @@
             </script>
 
             <script id='portraits-overview' type='text/x-handlebars-template'>
+                <div class='mainInfo'>
+                    <h2>Wat kan ik met deze tool?</h2>
+                    <p>
+                        Deze tool gebruik gezichtsdetectie om een persoon in een portret te identificeren.
+                        Na het identificeren worden andere portretten van deze persoon opgehaald.
+                    </p>
+                    <p><b>Klik op een van de portretten om te beginnen.</b></p>
+                </div>
                 <h2>Portretten</h2>
                 <div class='article-grid'>
                 {{#each portraits}}
@@ -93,17 +106,37 @@
                 <div class='detail-grid'>
                     <a class='btn back' href='#'>Terug naar overzicht</a>
                     <h3>{{portrait.title}}</h3>
-                    <div>
-                        <img src='{{portrait.imageUrl}}' alt='{{portrait.title}}' />
+                    <b>Datum: </b>{{portrait.beginTimestamp}}<br />
+                    <b>Type: </b>{{portrait.type}}
+                    {{#if similarPortraits}}<br / />
+                        <b>Geschatte leeftijd: </b> {{portrait.faceAttributes.age}}
+                    {{/if}}
+                        <p>
+                            <img src='{{portrait.imageUrl}}' alt='{{portrait.title}}' /><br />
+                            {{portrait.description}}
+                        </p>
+                        <h3>Andere portretten waar deze persoon op staat</h3>
+                        <div>
                         {{#if similarPortraits}}
                             {{#each similarPortraits}}
-                                <img src='{{imageUrl}}' alt='{{title}}' />
+                                <article id='{{azureFaceId}}'>
+                                    <a href='#portrait/{{azureFaceId}}'>
+                                        <img src='{{imageUrl}}' alt='{{title}}' />
+                                        <p>
+                                            <b>Titel: </b>{{title}}
+                                            <b>Zekerheid: </b> {{similarityPercentage}}%
+
+                                        </p>
+                                    </a>
+                                </article>
                             {{/each}}
+                            {{else}}
+                            <p>
+                                Portretten laden...
+                            </p>
+
                         {{/if}}
                     </div>
-                    <p>
-                        {{portrait.description}}
-                    </p>
                 </div>
             </script>
         </main>

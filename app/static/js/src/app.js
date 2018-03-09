@@ -32,6 +32,7 @@ import PortraitFactory from './adamnet/PortraitFactory.class.js'
 
         },
         portraitDetail: function(azureFaceId) {
+            document.querySelector('#loader').style.display = 'block';
             let self = this;
             document.querySelector('#main-section').innerHTML = '';
 
@@ -47,12 +48,12 @@ import PortraitFactory from './adamnet/PortraitFactory.class.js'
             document.querySelector('#main-section').innerHTML = data;
 
             self.portraitFactory.detectFace(portrait).then(function(faceData) {
-                console.log(faceData)
                 self.portraitFactory.findSimilars(faceData[0].faceId).then(function(similarPortraits){
-                    console.log(similarPortraits)
+                    faceData[0].faceAttributes.age = Number(faceData[0].faceAttributes.age).toFixed(0);
+                    portrait.faceAttributes = faceData[0].faceAttributes;
                     let data = template({
                         portrait: portrait,
-                        similarPortraits: similarPortraits
+                        similarPortraits: similarPortraits,
                     });
 
                     document.querySelector('#main-section').innerHTML = data;
