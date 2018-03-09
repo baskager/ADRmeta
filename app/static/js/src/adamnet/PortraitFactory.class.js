@@ -59,6 +59,41 @@ export default class PortraitFactory {
     isPortraitInCollection(name) {
         return this.getPortraitFromCollection(name).length > 0;
     }
+    detectFace(portrait) {
+        const self = this;
+        return new Promise(function(resolve, reject) {
+            const endpoints = self.api.getEndpointsForApi('azureFaceAPI');
+            endpoints.face.detect.body.url = portrait.imageUrl;
+
+
+            self.api.request('azureFaceAPI', endpoints.face.detect).then(function(data) {
+                resolve(data);
+            }).catch(function(err){
+                reject(err);
+            });
+        });
+    }
+    findSimilars(faceId) {
+        const self = this;
+        return new Promise(function(resolve, reject) {
+            const endpoints = self.api.getEndpointsForApi('azureFaceAPI');
+            endpoints.face.findSimilars.body.faceId = faceId;
+
+
+            self.api.request('azureFaceAPI', endpoints.face.findSimilars).then(function(similarDepictions) {
+                let similarPortraits = [];
+                for(let depiction of similarDepictions) {
+                    let similarPortrait = self.getPortraitFromCollection(depiction.persistedFaceId)[0];
+                    similarPortrait.similarityConfidence = depiction.confidence;
+
+                    similarPortraits.push(similarPortrait);
+                }
+                resolve(similarPortraits);
+            }).catch(function(err){
+                reject(err);
+            });
+        });
+    }
     getPortraits(name) {
         const self = this;
         return new Promise(function(resolve, reject) {

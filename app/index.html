@@ -95,10 +95,15 @@
                     <h3>{{portrait.title}}</h3>
                     <div>
                         <img src='{{portrait.imageUrl}}' alt='{{portrait.title}}' />
-                        <p>
-                            {{portrait.description}}
-                        </p>
+                        {{#if similarPortraits}}
+                            {{#each similarPortraits}}
+                                <img src='{{imageUrl}}' alt='{{title}}' />
+                            {{/each}}
+                        {{/if}}
                     </div>
+                    <p>
+                        {{portrait.description}}
+                    </p>
                 </div>
             </script>
         </main>

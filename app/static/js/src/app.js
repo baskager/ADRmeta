@@ -32,6 +32,7 @@ import PortraitFactory from './adamnet/PortraitFactory.class.js'
 
         },
         portraitDetail: function(azureFaceId) {
+            let self = this;
             document.querySelector('#main-section').innerHTML = '';
 
             let portrait = this.portraitFactory.getPortraitFromCollection(azureFaceId)[0];
@@ -39,13 +40,26 @@ import PortraitFactory from './adamnet/PortraitFactory.class.js'
 
             let sectionTemplate = document.querySelector('#portrait-detail').innerHTML;
             let template = Handlebars.compile(sectionTemplate);
-
             let data = template({
                 portrait: portrait
             });
-            document.querySelector('#loader').style.display = 'none';
-            document.querySelector('#main-section').innerHTML += data;
 
+            document.querySelector('#main-section').innerHTML = data;
+
+            self.portraitFactory.detectFace(portrait).then(function(faceData) {
+                console.log(faceData)
+                self.portraitFactory.findSimilars(faceData[0].faceId).then(function(similarPortraits){
+                    console.log(similarPortraits)
+                    let data = template({
+                        portrait: portrait,
+                        similarPortraits: similarPortraits
+                    });
+
+                    document.querySelector('#main-section').innerHTML = data;
+                    document.querySelector('#loader').style.display = 'none';
+                });
+
+            });
         },
         indexOverview: function() {
             document.querySelector('#main-section').innerHTML = '';

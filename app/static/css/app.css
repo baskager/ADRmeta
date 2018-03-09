@@ -124,6 +124,10 @@ main {
 .detail-grid h3 {
 
 }
+.detail-grid img {
+    max-width: 30em;
+    height: auto;
+}
 
 .basic-section article {
     margin-bottom: 1em;
