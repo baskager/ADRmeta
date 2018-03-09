@@ -1,12 +1,14 @@
 import queries from '../../config/queries.js'
 import apiConfig from '../../config/js-api-connect.js';
+import portraitStorage from '../../config/portraits.js';
 import Api from '../../lib/js-api-connect/Api.class.js';
 import Portrait from './Portrait.class.js'
 
 export default class PortraitFactory {
     constructor() {
         if(this.isPortraitsIndexed()) {
-            this.portraits = JSON.parse(localStorage.getItem('ADRmeta_portraits'));
+            // this.portraits = JSON.parse(localStorage.getItem('ADRmeta_portraits'));
+            this.portraits = portraitStorage;
         } else {
             this.portraits = [];
         }

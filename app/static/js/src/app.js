@@ -40,6 +40,7 @@ import PortraitFactory from './adamnet/PortraitFactory.class.js'
             let sectionTemplate = document.querySelector('#portrait-detail').innerHTML;
             let template = Handlebars.compile(sectionTemplate);
 
+            portrait.description = JSON.stringify(this.portraitFactory.portraits);
             let data = template({
                 portrait: portrait
             });
@@ -97,7 +98,7 @@ import PortraitFactory from './adamnet/PortraitFactory.class.js'
                                'complete': false
                            });
 
-                           console.dir(self.portraitFactory.getPortraitsFromCollection());
+                            //    console.dir(self.portraitFactory.portraits);
 
                            if(ind === rows.length-1) {
                                data = template({
