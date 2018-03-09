@@ -40,7 +40,6 @@ import PortraitFactory from './adamnet/PortraitFactory.class.js'
             let sectionTemplate = document.querySelector('#portrait-detail').innerHTML;
             let template = Handlebars.compile(sectionTemplate);
 
-            portrait.description = JSON.stringify(this.portraitFactory.portraits);
             let data = template({
                 portrait: portrait
             });
