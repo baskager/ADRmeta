@@ -7,8 +7,7 @@ import Portrait from './Portrait.class.js'
 export default class PortraitFactory {
     constructor() {
         if(this.isPortraitsIndexed()) {
-            // this.portraits = JSON.parse(localStorage.getItem('ADRmeta_portraits'));
-            this.portraits = portraitStorage;
+            this.portraits = JSON.parse(localStorage.getItem('ADRmeta_portraits'));
         } else {
             this.portraits = [];
         }
@@ -29,6 +28,7 @@ export default class PortraitFactory {
     }
 
     isPortraitsIndexed() {
+        if(localStorage === null) return false
         return localStorage.getItem('ADRmeta_portraits_isIndexed');
     }
 
@@ -85,7 +85,7 @@ export default class PortraitFactory {
                 for(let depiction of similarDepictions) {
                     let similarPortrait = self.getPortraitFromCollection(depiction.persistedFaceId)[0];
                     similarPortrait.similarityConfidence = depiction.confidence;
-                    similarPortrait.similarityPercentage = Number(depiction.confidence*100).toFixed(0);
+                    similarPortrait.similarityPercentage = Number(depiction.confidence*100).toFixed(0)
 
                     similarPortraits.push(similarPortrait);
                 }
