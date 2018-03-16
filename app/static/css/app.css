@@ -135,13 +135,14 @@ main {
 }
 
 .article-grid, .detail-grid div {
-    margin: 0 5em 0 5em;
+    margin: 0 1em 0 1em;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 2em;
 }
 @media (min-width: 40em) {
     .article-grid, .detail-grid div {
+        margin: 0 5em 0 5em;
         grid-template-columns: repeat(2, 1fr);
     }
 }
