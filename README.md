@@ -1,3 +1,5 @@
+# Notice
+This app is no longer in working condition since the free Microsoft Azure Face API key has expired.
 # ADRmeta
 Adamlink depiction recognition and metadata tool
 
